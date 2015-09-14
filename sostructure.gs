@@ -24,6 +24,8 @@ function generateTopFolder() {
 }
 
 function generateInnerFolders(topFolder){
+  var noteLayoutName = "Science Olympiad Layout";
+  var noteSheetLayout = DriveApp.getFilesByName(noteLayoutName).next();
   var events = ["Air Trajectory", 
                 "Anatomy & Physiology", 
                 "Astronomy", 
@@ -49,7 +51,17 @@ function generateInnerFolders(topFolder){
                 "Write It Do It"
                ];
   for (var i=0; i<events.length; i++){
-    if (!DriveApp.getFoldersByName(events[i]).hasNext()) 
-      topFolder.createFolder(events[i]);
+    var inFolder;
+    // create/get inner folder
+    if (!topFolder.getFoldersByName(events[i]).hasNext()) {
+      inFolder = topFolder.createFolder(events[i]);
+    }
+    else {
+      inFolder = topFolder.getFoldersByName(events[i]).next();
+    }
+    
+    // create inner file if it doesn't exist
+    if (!inFolder.getFilesByName(events[i]).hasNext())
+      noteSheetLayout.makeCopy(events[i], inFolder);
   };
 }

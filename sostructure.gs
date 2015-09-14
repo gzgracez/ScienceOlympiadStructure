@@ -49,6 +49,7 @@ function generateInnerFolders(topFolder){
                 "Write It Do It"
                ];
   for (var i=0; i<events.length; i++){
-    topFolder.createFolder(events[i]);
+    if (!DriveApp.getFoldersByName(events[i]).hasNext()) 
+      topFolder.createFolder(events[i]);
   };
 }

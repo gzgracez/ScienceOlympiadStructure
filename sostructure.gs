@@ -25,43 +25,48 @@ function generateTopFolder() {
 
 function generateInnerFolders(topFolder){
   var noteLayoutName = "Science Olympiad Layout";
+  var buildLayoutName = "Science Olympiad Build Checklist";
   var noteSheetLayout = DriveApp.getFilesByName(noteLayoutName).next();
-  var events = ["Air Trajectory", 
-                "Anatomy & Physiology", 
-                "Astronomy", 
-                "Bridge Building", 
-                "Cell Biology", 
-                "Chemistry Lab",
-                "Disease Detectives",
-                "Dynamic Planet",
-                "Electric Vehicle",
-                "Experimental Design",
-                "Forensics",
-                "Fossils",
-                "Game On",
-                "GeoLogic Mapping",
-                "Green Generation",
-                "Hydrogeology",
-                "Invasive Species",
-                "It's About Time",
-                "Protein Modeling",
-                "Robot Arm",
-                "Wind Power",
-                "Wright Stuff",
-                "Write It Do It"
+  var buildSheetLayout = DriveApp.getFilesByName(buildLayoutName).next();
+  var events = [["Air Trajectory", "yes"],
+                ["Anatomy & Physiology", "no"],
+                ["Astronomy", "no"],
+                ["Bridge Building", "yes"],
+                ["Cell Biology", "no"],
+                ["Chemistry Lab", "no"],
+                ["Disease Detectives", "no"],
+                ["Dynamic Planet", "no"],
+                ["Electric Vehicle", "yes"],
+                ["Experimental Design", "no"],
+                ["Forensics", "no"],
+                ["Fossils", "no"],
+                ["Game On", "no"],
+                ["GeoLogic Mapping", "no"],
+                ["Green Generation", "no"],
+                ["Hydrogeology", "no"],
+                ["Invasive Species", "no"],
+                ["It's About Time", "yes"],
+                ["Protein Modeling", "no"],
+                ["Robot Arm", "yes"],
+                ["Wind Power", "yes"],
+                ["Wright Stuff", "yes"],
+                ["Write It Do It", "no"]
                ];
   for (var i=0; i<events.length; i++){
     var inFolder;
     // create/get inner folder
-    if (!topFolder.getFoldersByName(events[i]).hasNext()) {
-      inFolder = topFolder.createFolder(events[i]);
+    if (!topFolder.getFoldersByName(events[i][0]).hasNext()) {
+      inFolder = topFolder.createFolder(events[i][0]);
     }
     else {
-      inFolder = topFolder.getFoldersByName(events[i]).next();
+      inFolder = topFolder.getFoldersByName(events[i][0]).next();
     }
     
-    // create inner file if it doesn't exist
-    if (!inFolder.getFilesByName(events[i]).hasNext())
-      noteSheetLayout.makeCopy(events[i], inFolder);
+    // create inner notes file if it doesn't exist
+    if (!inFolder.getFilesByName(events[i][0]).hasNext())
+      noteSheetLayout.makeCopy(events[i][0], inFolder);
+    // create inner build checklist file if it doesn't exist
+    if (events[i][1] == "yes" && !inFolder.getFilesByName(events[i][0] + " Build Checklist").hasNext())
+      buildSheetLayout.makeCopy(events[i][0] + " Build Checklist", inFolder);
   };
 }

@@ -26,8 +26,10 @@ function generateTopFolder() {
 function generateInnerFolders(topFolder){
   var noteLayoutName = "Science Olympiad Layout";
   var buildLayoutName = "Science Olympiad Build Checklist";
+  var materialsLayoutName = "Materials";
   var noteSheetLayout = DriveApp.getFilesByName(noteLayoutName).next();
   var buildSheetLayout = DriveApp.getFilesByName(buildLayoutName).next();
+  var materialsSheetLayout = DriveApp.getFilesByName(materialsLayoutName).next();
   var events = [["Air Trajectory", "yes"],
                 ["Anatomy & Physiology", "no"],
                 ["Astronomy", "no"],
@@ -67,6 +69,7 @@ function generateInnerFolders(topFolder){
       noteSheetLayout.makeCopy(events[i][0], inFolder);
     // create inner build checklist file if it doesn't exist
     if (events[i][1] == "yes" && !inFolder.getFilesByName(events[i][0] + " Build Checklist").hasNext())
-      buildSheetLayout.makeCopy(events[i][0] + " Build Checklist", inFolder);
+      //buildSheetLayout.makeCopy(events[i][0] + " Build Checklist", inFolder);
+      materialsSheetLayout.makeCopy(events[i][0] + " Materials List", inFolder);
   };
 }

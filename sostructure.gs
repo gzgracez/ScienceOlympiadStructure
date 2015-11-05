@@ -25,11 +25,13 @@ function generateTopFolder() {
 
 function generateInnerFolders(topFolder){
   var noteLayoutName = "Science Olympiad Notes Layout";
-  var buildLayoutName = "Build Links/Resources";
+  var buildLayoutName = "Build Resources";
   var materialsLayoutName = "Materials";
+  var testResourcesName = "Test Resources";
   var noteSheetLayout = DriveApp.getFilesByName(noteLayoutName).next();
   var buildSheetLayout = DriveApp.getFilesByName(buildLayoutName).next();
   var materialsSheetLayout = DriveApp.getFilesByName(materialsLayoutName).next();
+  var testResourcesLayout = DriveApp.getFilesByName(testResourcesName).next();
   var events = [["Air Trajectory", "yes"],
                 ["Anatomy & Physiology", "no"],
                 ["Astronomy", "no"],
@@ -67,10 +69,18 @@ function generateInnerFolders(topFolder){
     // create inner notes file if it doesn't exist
     if (!inFolder.getFilesByName(events[i][0] + " Notes Layout").hasNext())
       noteSheetLayout.makeCopy(events[i][0] + " Notes Layout", inFolder);
-    // create inner build checklist file if it doesn't exist
-    if (events[i][1] == "yes" && !inFolder.getFilesByName(events[i][0] + " Materials List").hasNext())
-      materialsSheetLayout.makeCopy(events[i][0] + " Materials List", inFolder);
-    if (events[i][1] == "yes" && !inFolder.getFilesByName(events[i][0] + " Links/Resources").hasNext())
-      materialsSheetLayout.makeCopy(events[i][0] + " Links/Resources", inFolder);
+    // create inner files if they don't exist
+    // build events
+    if (events[i][1] == "yes") {
+      if (!inFolder.getFilesByName(events[i][0] + " Materials List").hasNext())
+        materialsSheetLayout.makeCopy(events[i][0] + " Materials List", inFolder);
+      if (!inFolder.getFilesByName(events[i][0] + " Resources/Links").hasNext())
+        buildSheetLayout.makeCopy(events[i][0] + " Resources/Links", inFolder);
+    }
+    // testing events
+    else {
+      if (!inFolder.getFilesByName(events[i][0] + " Resources/Links").hasNext())
+        testResourcesLayout.makeCopy(events[i][0] + " Resources/Links", inFolder);
+    }
   };
 }

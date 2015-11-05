@@ -7,6 +7,7 @@ function generateTopFolder() {
   var topName = "Science Olympiad 2015-2016 Folder Structure";
   var allFolders = DriveApp.getFolders();
   var noFolder = true;
+  var indivFolder; // for individual checklist/timeline
   while (allFolders.hasNext()) {
     var folder = allFolders.next();
     if (folder.getName() == topName) {
@@ -28,10 +29,12 @@ function generateInnerFolders(topFolder){
   var buildLayoutName = "Build Resources";
   var materialsLayoutName = "Materials";
   var testResourcesName = "Test Resources";
+  var checklistName = "Checklist/Timeline";
   var noteSheetLayout = DriveApp.getFilesByName(noteLayoutName).next();
   var buildSheetLayout = DriveApp.getFilesByName(buildLayoutName).next();
   var materialsSheetLayout = DriveApp.getFilesByName(materialsLayoutName).next();
   var testResourcesLayout = DriveApp.getFilesByName(testResourcesName).next();
+  var checklistLayout = DriveApp.getFilesByName(checklistName).next();
   var events = [["Air Trajectory", "yes"],
                 ["Anatomy & Physiology", "no"],
                 ["Astronomy", "no"],
@@ -83,4 +86,20 @@ function generateInnerFolders(topFolder){
         testResourcesLayout.makeCopy(events[i][0] + " Resources/Links", inFolder);
     }
   };
+  
+  // Generate folder for individual checklist/timeline
+  if (!topFolder.getFoldersByName("A-Individual Checklist/Timeline").hasNext()) {
+    indivFolder = topFolder.createFolder("A-Individual Checklist/Timeline");
+  }
+  else {
+    indivFolder = topFolder.getFoldersByName("A-Individual Checklist/Timeline").next();
+  }
+  var students = [
+    ["Student 1"],
+    ["Student 2"]
+  ];
+  for (var i=0; i<students.length; i++) {
+    if (!indivFolder.getFilesByName(students[i] + " Checklist/Timeline").hasNext())
+      checklistLayout.makeCopy(students[i] + " Checklist/Timeline", indivFolder);
+  }
 }

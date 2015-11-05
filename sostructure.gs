@@ -24,8 +24,8 @@ function generateTopFolder() {
 }
 
 function generateInnerFolders(topFolder){
-  var noteLayoutName = "Science Olympiad Layout";
-  var buildLayoutName = "Science Olympiad Build Checklist";
+  var noteLayoutName = "Science Olympiad Notes Layout";
+  var buildLayoutName = "Build Links/Resources";
   var materialsLayoutName = "Materials";
   var noteSheetLayout = DriveApp.getFilesByName(noteLayoutName).next();
   var buildSheetLayout = DriveApp.getFilesByName(buildLayoutName).next();
@@ -65,11 +65,12 @@ function generateInnerFolders(topFolder){
     }
     
     // create inner notes file if it doesn't exist
-    if (!inFolder.getFilesByName(events[i][0]).hasNext())
-      noteSheetLayout.makeCopy(events[i][0], inFolder);
+    if (!inFolder.getFilesByName(events[i][0] + " Notes Layout").hasNext())
+      noteSheetLayout.makeCopy(events[i][0] + " Notes Layout", inFolder);
     // create inner build checklist file if it doesn't exist
-    if (events[i][1] == "yes" && !inFolder.getFilesByName(events[i][0] + " Build Checklist").hasNext())
-      //buildSheetLayout.makeCopy(events[i][0] + " Build Checklist", inFolder);
+    if (events[i][1] == "yes" && !inFolder.getFilesByName(events[i][0] + " Materials List").hasNext())
       materialsSheetLayout.makeCopy(events[i][0] + " Materials List", inFolder);
+    if (events[i][1] == "yes" && !inFolder.getFilesByName(events[i][0] + " Links/Resources").hasNext())
+      materialsSheetLayout.makeCopy(events[i][0] + " Links/Resources", inFolder);
   };
 }

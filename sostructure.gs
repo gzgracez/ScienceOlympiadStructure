@@ -30,11 +30,13 @@ function generateInnerFolders(topFolder){
   var materialsLayoutName = "Materials";
   var testResourcesName = "Test Resources";
   var checklistName = "Checklist/Timeline";
+  var schedulesName = "Schedules";
   var noteSheetLayout = DriveApp.getFilesByName(noteLayoutName).next();
   var buildSheetLayout = DriveApp.getFilesByName(buildLayoutName).next();
   var materialsSheetLayout = DriveApp.getFilesByName(materialsLayoutName).next();
   var testResourcesLayout = DriveApp.getFilesByName(testResourcesName).next();
   var checklistLayout = DriveApp.getFilesByName(checklistName).next();
+  var schedulesLayout = DriveApp.getFilesByName(schedulesName).next();
   var events = [["Air Trajectory", "yes"],
                 ["Anatomy & Physiology", "no"],
                 ["Astronomy", "no"],
@@ -48,7 +50,7 @@ function generateInnerFolders(topFolder){
                 ["Forensics", "no"],
                 ["Fossils", "no"],
                 ["Game On", "no"],
-                ["GeoLogic Mapping", "no"],
+                ["Geologic Mapping", "no"],
                 ["Green Generation", "no"],
                 ["Hydrogeology", "no"],
                 ["Invasive Species", "no"],
@@ -57,7 +59,9 @@ function generateInnerFolders(topFolder){
                 ["Robot Arm", "yes"],
                 ["Wind Power", "yes"],
                 ["Wright Stuff", "yes"],
-                ["Write It Do It", "no"]
+                ["Write It Do It", "no"],
+                ["Remote Sensing", "no"],
+                ["Optics", "no"]
                ];
   for (var i=0; i<events.length; i++){
     var inFolder;
@@ -72,6 +76,10 @@ function generateInnerFolders(topFolder){
     // create inner notes file if it doesn't exist
     if (!inFolder.getFilesByName(events[i][0] + " Notes Layout").hasNext())
       noteSheetLayout.makeCopy(events[i][0] + " Notes Layout", inFolder);
+    // create inner notes file if it doesn't exist
+    if (!inFolder.getFilesByName(events[i][0] + " Schedules").hasNext())
+      schedulesLayout.makeCopy(events[i][0] + " Schedules", inFolder);
+    
     // create inner files if they don't exist
     // build events
     if (events[i][1] == "yes") {

@@ -7,9 +7,21 @@ function color() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName("By Student");
   for (var i=2; i<=16; i++) {
-    var range = sheet.getRange(i, 1, 1, 8);
+    var range = sheet.getRange(i, 1, 1, 9);
     if (i%2==0){
       range.setBackground("#fff2cc");
+    }
+    else {
+      range.setBackground("white");
+    }
+  }
+  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Events (Conflicts)");
+  for (var i=2; i<=24; i++) {
+    var range = sheet.getRange(i, 1, 1, 8);
+    if (i%2==0){
+      range.setBackground("#cfe2f3");
     }
     else {
       range.setBackground("white");

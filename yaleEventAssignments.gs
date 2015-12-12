@@ -41,7 +41,10 @@ function byEvent() {
   eventSheet = ss.getSheetByName("By Event");
   var events = eventSheet.getDataRange();
   var eRange = events.getValues();
-  for (var a = 1; a < 24; a++){ //row 
+  var byEvents = [[]];
+  for (var a = 1; a < 24; a++){ //row
+    byEvents[0].push(eRange[a][0]);
+    byEvents.push([]);
     for (var i = 2; i < 8; i++) { //col
       if (eRange[a][i]!=""){
         eRange[a][2] = eRange[0][i];
@@ -53,11 +56,29 @@ function byEvent() {
   eRange[0][3] = "Student";
   eRange[0][4] = "Student";
   eRange[0][5] = "Student";
-  events.setValues(eRange);
-  eventSheet.deleteColumns(7,2);
   
+  //students by events
   var students = studentSheet.getDataRange();
   var sRange = students.getValues();
+  for (var a = 1; a < 16; a++){ //row 
+    for (var i = 2; i < 8; i++) { //col
+      if (sRange[a][i]!=""){
+        var tempIndex = byEvents[0].indexOf(sRange[a][i]);
+        byEvents[tempIndex+1].push(sRange[a][0]);
+      }
+    }
+  }
   
+  for (var i=1; i<byEvents.length; i++) {
+    var t = 0;
+    while (t < byEvents[i].length) {
+      eRange[i][3+t] = byEvents[i][t];
+      t++;
+    }
+  }
+  
+  Logger.log(byEvents);
+  events.setValues(eRange);
+  eventSheet.deleteColumns(7,2);
   Logger.log(eRange);
 }

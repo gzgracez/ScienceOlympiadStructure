@@ -33,6 +33,7 @@ function byEvent() {
     for (var i = 2; i < 8; i++) { //col
       if (eRange[a][i]!=""){
         eRange[a][2] = eRange[0][i];
+        eRange[a][i] = "";
       }
     }
   }
@@ -42,5 +43,9 @@ function byEvent() {
   eRange[0][5] = "Student";
   events.setValues(eRange);
   eventSheet.deleteColumns(7,2);
+  
+  var students = studentSheet.getDataRange();
+  var sRange = students.getValues();
+  
   Logger.log(eRange);
 }

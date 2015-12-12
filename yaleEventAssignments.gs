@@ -77,8 +77,6 @@ function byEvent() {
     }
   }
   
-  Logger.log(byEvents);
   events.setValues(eRange);
   eventSheet.deleteColumns(7,2);
-  Logger.log(eRange);
 }

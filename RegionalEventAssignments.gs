@@ -79,5 +79,5 @@ function byEvent() {
   }
   
   events.setValues(eRange);
-  eventSheet.deleteColumns(7,3);
+  eventSheet.deleteColumns(7,18);
 }

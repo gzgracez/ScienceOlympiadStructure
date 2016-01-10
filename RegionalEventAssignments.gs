@@ -27,6 +27,18 @@ function color() {
       range.setBackground("white");
     }
   }
+  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Events (Conflicts) 2");
+  for (var i=2; i<=25; i++) {
+    var range = sheet.getRange(i, 1, 1, 25);
+    if (i%2==0){
+      range.setBackground("#cfe2f3");
+    }
+    else {
+      range.setBackground("white");
+    }
+  }
 }
 
 function byEvent() {
@@ -42,14 +54,15 @@ function byEvent() {
   var events = eventSheet.getDataRange();
   var eRange = events.getValues();
   var byEvents = [[]];
-  for (var a = 1; a < 25; a++){ //row
+  for (var a = 1; a < 26; a++){ //row = events column
     byEvents[0].push(eRange[a][0]);
     byEvents.push([]);
-    for (var i = 2; i < 9; i++) { //col = # of time slots
+    for (var i = 2; i < 10; i++) { //col = # of time slots
       if (eRange[a][i]!=""){
-        Logger.log(eRange[a][i]);
         eRange[a][2] = eRange[0][i];
-        eRange[a][i] = "";
+        if (i!=2) {
+          eRange[a][i] = "";
+        }
       }
     }
   }
@@ -57,12 +70,13 @@ function byEvent() {
   eRange[0][3] = "Student";
   eRange[0][4] = "Student";
   eRange[0][5] = "Student";
+  Logger.log(eRange);
   
   //students by events
   var students = studentSheet.getDataRange();
   var sRange = students.getValues();
-  for (var a = 1; a < 11; a++){ // row = # of students
-    for (var i = 2; i < 9; i++) { //col = # of time slots
+  for (var a = 1; a < 16; a++){ // row = # of students
+    for (var i = 2; i < 10; i++) { //col = # of time slots
       if (sRange[a][i]!=""){
         var tempIndex = byEvents[0].indexOf(sRange[a][i]);
         byEvents[tempIndex+1].push(sRange[a][0]);
@@ -80,4 +94,10 @@ function byEvent() {
   
   events.setValues(eRange);
   eventSheet.deleteColumns(7,18);
+  var fontStyles = [];
+  for (var i = 0; i<25; i++) {
+    fontStyles.push(["bold"]);
+  }
+  var bRange = eventSheet.getRange("C2:C26");
+  bRange.setFontWeights(fontStyles);
 }

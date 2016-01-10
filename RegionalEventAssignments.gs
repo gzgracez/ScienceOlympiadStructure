@@ -27,24 +27,12 @@ function color() {
       range.setBackground("white");
     }
   }
-  
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("Events (Conflicts) 2");
-  for (var i=2; i<=25; i++) {
-    var range = sheet.getRange(i, 1, 1, 25);
-    if (i%2==0){
-      range.setBackground("#cfe2f3");
-    }
-    else {
-      range.setBackground("white");
-    }
-  }
 }
 
 function byEvent() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var studentSheet = ss.getSheetByName("By Student");
-  var eventConflicts = ss.getSheetByName("Events (Conflicts) 2");
+  var eventConflicts = ss.getSheetByName("Events (Conflicts)");
   var eventSheet;
   if (ss.getSheetByName("By Event")!=null) {
     ss.deleteSheet(ss.getSheetByName("By Event"));
@@ -93,7 +81,7 @@ function byEvent() {
   }
   
   events.setValues(eRange);
-  eventSheet.deleteColumns(7,18);
+  eventSheet.deleteColumns(7,4);
   var fontStyles = [];
   for (var i = 0; i<25; i++) {
     fontStyles.push(["bold"]);

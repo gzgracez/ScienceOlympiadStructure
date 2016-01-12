@@ -5,7 +5,19 @@ function main() {
 
 function color() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("By Student");
+  var sheet = ss.getSheetByName("By Student A");
+  for (var i=2; i<=16; i++) {
+    var range = sheet.getRange(i, 1, 1, 16);
+    if (i%2==0){
+      range.setBackground("#fff2cc");
+    }
+    else {
+      range.setBackground("white");
+    }
+  }
+  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("By Student B");
   for (var i=2; i<=16; i++) {
     var range = sheet.getRange(i, 1, 1, 16);
     if (i%2==0){
@@ -31,14 +43,15 @@ function color() {
 
 function byEvent() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var studentSheet = ss.getSheetByName("By Student");
+  var studentSheet = ss.getSheetByName("By Student A");
   var eventConflicts = ss.getSheetByName("Events (Conflicts)");
   var eventSheet;
-  if (ss.getSheetByName("By Event")!=null) {
-    ss.deleteSheet(ss.getSheetByName("By Event"));
+  var byEventSheetName = "By Event A";
+  if (ss.getSheetByName(byEventSheetName)!=null) {
+    ss.deleteSheet(ss.getSheetByName("By Event A"));
   }
-  eventSheet = eventConflicts.copyTo(ss).setName("By Event");
-  eventSheet = ss.getSheetByName("By Event");
+  eventSheet = eventConflicts.copyTo(ss).setName(byEventSheetName);
+  eventSheet = ss.getSheetByName(byEventSheetName);
   var events = eventSheet.getDataRange();
   var eRange = events.getValues();
   var byEvents = [[]];

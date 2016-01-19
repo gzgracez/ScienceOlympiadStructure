@@ -41,6 +41,19 @@ function byStudent() {
   var ebrange = eventsB.getValues();
   eToS(earange, srange);
   eToS(ebrange, srange);
+  
+  for (var sr = 1; sr < 33; sr++) {
+    if (sr != 16 && sr != 17) {
+      var count = 0;
+      for (var sc = 2; sc < 11; sc++) { 
+        if (sc != 3 && srange[sr][sc] != "") {
+          count++;
+        }
+      }
+      srange[sr][11] = count;
+    }
+  }
+  
   students.setValues(srange);
 }
 
@@ -70,6 +83,14 @@ function eToS(eRange, sRange) {
           }
         }
         else if (eRange[er][4] == sRange[sr][0]) {
+          if (eRange[er][2] == sRange[0][sc]) {
+            sRange[sr][sc] = eRange[er][0];
+          }
+          if (eRange[0][1] == sRange[0][sc]) {
+            sRange[sr][sc] = eRange[er][1];
+          }
+        }
+        else if (eRange[er][5] != "" && eRange[er][5] == sRange[sr][0]) {
           if (eRange[er][2] == sRange[0][sc]) {
             sRange[sr][sc] = eRange[er][0];
           }

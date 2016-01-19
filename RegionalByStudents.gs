@@ -78,23 +78,23 @@ function eToS(eRange, sRange) {
           if (eRange[er][2] == sRange[0][sc]) {
             sRange[sr][sc] = eRange[er][0];
           }
-          if (eRange[0][1] == sRange[0][sc]) {
+          if (eRange[er][1] != "" && eRange[0][1] == sRange[0][sc]) {
             sRange[sr][sc] = eRange[er][1];
           }
         }
-        else if (eRange[er][4] == sRange[sr][0]) {
+        if (eRange[er][4] == sRange[sr][0]) {
           if (eRange[er][2] == sRange[0][sc]) {
             sRange[sr][sc] = eRange[er][0];
           }
-          if (eRange[0][1] == sRange[0][sc]) {
+          if (eRange[er][1] != "" && eRange[0][1] == sRange[0][sc]) {
             sRange[sr][sc] = eRange[er][1];
           }
         }
-        else if (eRange[er][5] != "" && eRange[er][5] == sRange[sr][0]) {
+        if (eRange[er][5] != "" && eRange[er][5] == sRange[sr][0]) {
           if (eRange[er][2] == sRange[0][sc]) {
             sRange[sr][sc] = eRange[er][0];
           }
-          if (eRange[0][1] == sRange[0][sc]) {
+          if (eRange[er][1] != "" && eRange[0][1] == sRange[0][sc]) {
             sRange[sr][sc] = eRange[er][1];
           }
         }
